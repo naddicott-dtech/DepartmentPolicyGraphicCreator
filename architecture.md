@@ -87,11 +87,12 @@ Maximum depth: 3 levels (trunk → branch → leaf)
 
 ### Status Rules
 
-| Scenario | Default Status | Can Set Status? |
-|----------|---------------|-----------------|
-| Leaf node (no children) | `"red"` | Yes |
-| Parent with children | `null` | Optional (implies "depends") |
-| Flat item (no children) | `"red"` | Yes |
+| Scenario | Status | Notes |
+|----------|--------|-------|
+| Leaf node (no children) | Required | User must set green/yellow/red |
+| Parent with children | `null` always | Cannot have status (header only) |
+| Flat item (top-level, no children) | Required | Treated as leaf |
+| Newly created item | `"red"` default | Conservative default for new nodes |
 
 ### Persistence Schema (localStorage)
 
@@ -108,6 +109,51 @@ Maximum depth: 3 levels (trunk → branch → leaf)
   }
 }
 ```
+
+### Behavioral Rules (Clarifications)
+
+**Status assignment:**
+| Node Type | Has Status? | Editable? | Notes |
+|-----------|-------------|-----------|-------|
+| Category (has children) | No (`null`) | No | Acts as header only |
+| Leaf item (no children) | Yes | Yes | Traffic light required |
+| Flat item (top-level, no children) | Yes | Yes | Treated as leaf |
+
+**Key rule**: Parents NEVER have explicit status. If a node has children, it cannot have a traffic light. This simplifies UI and avoids "parent says green but child says red" conflicts.
+
+**Default status logic:**
+- Department templates define all initial statuses (from consensus lists)
+- "Default = red" applies ONLY to newly user-created items
+- When user adds a new leaf, it starts as RED (conservative)
+
+**Persistence lifecycle:**
+1. First visit (no localStorage): Load department template defaults
+2. Subsequent visits: Load from localStorage
+3. Switch department: Load that department's saved state (or defaults if none)
+4. "Reset to Defaults": Clear that department's localStorage, reload template
+
+**Edit modal - what resets:**
+| Action | Statuses | Comments | Structure |
+|--------|----------|----------|-----------|
+| Save structure changes | Reset to defaults | Reset (cleared) | Saved |
+| Cancel | Unchanged | Unchanged | Unchanged |
+| "Reset to Defaults" button | Reset to defaults | Reset (cleared) | Reset to template |
+
+**Delete behavior**: Always recursive. Deleting a parent deletes all children. Confirmation shown: "Delete [name] and all sub-items?"
+
+**Reorder behavior**: Up/down buttons at same level only. New items added at end of their level.
+
+**Preview/Prompt mapping:**
+- Categories appear as **section headers** (no status, no traffic light)
+- Only leaf items appear in GREEN/YELLOW/RED sections
+- Items grouped by status, not by category
+- Empty comments: omit entirely (no placeholder text)
+- Comments included as-is (no truncation)
+
+**Layout constraints:**
+- Target: 1440px width (MacBook Air)
+- Minimum: 1200px width
+- Below minimum: horizontal scroll (no responsive collapse)
 
 ## Component Architecture
 
@@ -261,7 +307,7 @@ Target: MacBook Air screens (~1440px width minimum)
 │  [+ Add Category]                                       │
 │                                                         │
 ├─────────────────────────────────────────────────────────┤
-│  ⚠ Saving will reset all traffic light selections.     │
+│  ⚠ Saving will reset all selections and comments.      │
 │                                                         │
 │              [Cancel]              [Save Changes]       │
 └─────────────────────────────────────────────────────────┘
@@ -287,12 +333,11 @@ All edit errors show inline, human-readable messages:
 - "Category name cannot be empty"
 - "Maximum depth reached (3 levels)"
 - "A category with this name already exists"
-- "Cannot delete: please remove sub-items first" (if we want non-recursive delete)
 
 **On Save**:
 1. Validate tree structure
-2. Show confirmation: "This will reset your color selections. Continue?"
-3. If confirmed: save structure, reset all statuses to defaults, close modal
+2. Show confirmation: "This will reset your color selections and comments. Continue?"
+3. If confirmed: save structure, reset statuses to defaults, clear all comments, close modal
 4. If cancelled: discard changes, close modal
 
 ### 3. Preview Updates
@@ -328,55 +373,59 @@ Target resolution: 4K for large format printing.
 
 ### 5. Semantic HTML Structure
 
+Simplified structure using standard nested lists (no expand/collapse needed):
+
 ```html
 <body>
-  <header role="banner">
+  <header>
     <h1>Department AI Policy Creator</h1>
     <nav aria-label="Department selection">
-      <button aria-pressed="true">English</button>
-      <button aria-pressed="false">Math</button>
+      <button aria-pressed="true" data-testid="dept-english">English</button>
+      <button aria-pressed="false" data-testid="dept-math">Math</button>
       <!-- ... -->
     </nav>
   </header>
 
-  <main>
+  <main class="split-layout">
     <section aria-label="Policy editor" class="editor-panel">
       <div class="toolbar">
-        <button>Edit Categories</button>
-        <button>Reset to Defaults</button>
+        <button data-testid="edit-categories">Edit Categories</button>
+        <button data-testid="reset-defaults">Reset to Defaults</button>
       </div>
-      <form aria-label="AI usage policies">
-        <ul role="tree" aria-label="Policy categories">
-          <li role="treeitem" aria-expanded="true">
-            <span class="category-label">Research & Sources</span>
-            <ul role="group">
-              <li role="treeitem">
-                <span class="item-label">Finding sources</span>
-                <fieldset class="traffic-light">
-                  <legend class="visually-hidden">AI usage for Finding sources</legend>
-                  <input type="radio" name="research-finding" value="green" id="rf-green">
-                  <label for="rf-green">OK</label>
-                  <!-- ... -->
-                </fieldset>
-                <label>
-                  <span class="visually-hidden">Comment for Finding sources</span>
-                  <input type="text" placeholder="Add clarification...">
-                </label>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </form>
+
+      <!-- Categories are static headers, no traffic lights -->
+      <div class="category" data-testid="category-understanding">
+        <h2 class="category-label">UNDERSTANDING</h2>
+
+        <!-- Only leaf items get traffic lights -->
+        <div class="policy-item" data-testid="item-explain-concepts">
+          <span class="item-label">Explain concepts & vocabulary</span>
+          <fieldset class="traffic-light" data-testid="status-explain-concepts">
+            <legend class="visually-hidden">AI policy for Explain concepts</legend>
+            <input type="radio" name="explain-concepts" value="green" id="ec-green">
+            <label for="ec-green" class="status-green">OK</label>
+            <input type="radio" name="explain-concepts" value="yellow" id="ec-yellow">
+            <label for="ec-yellow" class="status-yellow">Ask</label>
+            <input type="radio" name="explain-concepts" value="red" id="ec-red">
+            <label for="ec-red" class="status-red">No</label>
+          </fieldset>
+          <input type="text" class="comment-field"
+                 placeholder="Add clarification..."
+                 data-testid="comment-explain-concepts">
+        </div>
+        <!-- more items... -->
+      </div>
+      <!-- more categories... -->
     </section>
 
     <aside aria-label="Preview" class="preview-panel">
-      <article class="poster-preview">
-        <!-- Generated preview content -->
+      <article class="poster-preview" data-testid="preview">
+        <!-- Generated preview grouped by status -->
       </article>
-      <section aria-label="Prompt output">
+      <section class="prompt-output">
         <h2>Nano Banana Pro Prompt</h2>
-        <pre><code><!-- Generated prompt --></code></pre>
-        <button>Copy to Clipboard</button>
+        <pre data-testid="prompt-text"><code><!-- Generated prompt --></code></pre>
+        <button data-testid="copy-prompt">Copy to Clipboard</button>
       </section>
     </aside>
   </main>
@@ -395,6 +444,35 @@ All interactive elements include `data-testid` attributes:
 
 ## Testing Strategy
 
+### Test Setup
+
+```
+tests/
+├── services/           # Headless unit tests
+│   ├── StorageService.test.js
+│   ├── CategoryService.test.js
+│   ├── PromptService.test.js
+│   └── DefaultsService.test.js
+├── state/
+│   └── AppState.test.js
+├── utils/
+│   └── treeUtils.test.js
+├── components/         # DOM tests (jsdom)
+│   ├── DepartmentSelector.test.js
+│   ├── CategoryTree.test.js
+│   ├── TrafficLight.test.js
+│   └── Preview.test.js
+└── integration/        # Full flow tests
+    └── userFlow.test.js
+```
+
+**Commands:**
+```bash
+npm test              # Run all tests
+npm test -- --watch   # Watch mode
+npm test -- --coverage # Coverage report
+```
+
 ### Headless (No DOM) - Jest
 
 | Layer | What to Test |
@@ -411,8 +489,8 @@ All interactive elements include `data-testid` attributes:
 | Component | What to Test |
 |-----------|--------------|
 | `DepartmentSelector` | Renders all 6, fires selection event, shows active |
-| `CategoryTree` | Renders nested structure, expands/collapses |
-| `TrafficLight` | Three states, keyboard accessible |
+| `CategoryTree` | Renders nested structure correctly |
+| `TrafficLight` | Three states, keyboard navigation (arrow keys) |
 | `CommentField` | Input updates state, placeholder text |
 | `Preview` | Renders from state, omits empty comments |
 | `PromptOutput` | Generates correct format, copy button works |
@@ -422,6 +500,7 @@ All interactive elements include `data-testid` attributes:
 1. Full flow: Select dept → Set lights → Verify preview → Copy prompt
 2. Persistence: Set state → Reload page → State restored
 3. Edit flow: Edit categories → Confirm reset → Verify lights cleared
+4. Reset flow: Reset to defaults → Verify all state cleared
 
 ## Out of Scope (Explicit No)
 
