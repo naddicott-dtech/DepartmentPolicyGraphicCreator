@@ -5,6 +5,9 @@
 import { escapeHtml } from '../utils/escapeHtml.js';
 
 export const CategoryTree = {
+  // AbortController to clean up old listeners on re-render
+  _abortController: null,
+
   /**
    * Render the category tree
    * @param {HTMLElement} container - Tree container
@@ -13,8 +16,27 @@ export const CategoryTree = {
    */
   render(container, categories, callbacks) {
     if (!categories || categories.length === 0) {
+      // Abort any existing listeners before clearing
+      if (this._abortController) {
+        this._abortController.abort();
+        this._abortController = null;
+      }
       container.innerHTML = '<p class="empty-state">Select a department to get started.</p>';
       return;
+    }
+
+    // Skip re-render if a comment field in this container has focus
+    // This prevents destroying the input while user is typing
+    const activeEl = document.activeElement;
+    if (activeEl &&
+        activeEl.classList.contains('comment-field') &&
+        container.contains(activeEl)) {
+      return;
+    }
+
+    // Abort previous listeners before adding new ones
+    if (this._abortController) {
+      this._abortController.abort();
     }
 
     container.innerHTML = categories.map(category => this.renderCategory(category)).join('');
@@ -85,6 +107,10 @@ export const CategoryTree = {
   attachEventListeners(container, callbacks) {
     const { onStatusChange, onCommentChange } = callbacks;
 
+    // Create new AbortController for this render cycle
+    this._abortController = new AbortController();
+    const { signal } = this._abortController;
+
     // Status change (radio buttons)
     container.addEventListener('change', (e) => {
       if (e.target.type === 'radio' && e.target.name.startsWith('status-')) {
@@ -92,7 +118,7 @@ export const CategoryTree = {
         const status = e.target.value;
         onStatusChange(itemId, status);
       }
-    });
+    }, { signal });
 
     // Comment change (debounced on input)
     let commentTimeout;
@@ -110,6 +136,6 @@ export const CategoryTree = {
           }, 300);
         }
       }
-    });
+    }, { signal });
   }
 };

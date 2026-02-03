@@ -65,8 +65,7 @@ export const CategoryEditor = {
       ${this._editingTree.map((cat, idx) => this.renderEditCategory(cat, idx, 1)).join('')}
       <button class="add-item-btn" data-action="add-category">+ Add Category</button>
     `;
-
-    this.attachTreeListeners(container);
+    // NOTE: Event listeners are attached ONCE in setup() via event delegation
   },
 
   /**
@@ -137,11 +136,16 @@ export const CategoryEditor = {
   },
 
   /**
-   * Attach event listeners to the tree
-   * @param {HTMLElement} container - Tree container
+   * Attach tree event listeners ONCE to modal (called from setup)
+   * Uses event delegation so new tree items automatically work
+   * @param {HTMLElement} modal - Modal element (stable, not replaced on re-render)
    */
-  attachTreeListeners(container) {
-    container.addEventListener('click', (e) => {
+  attachTreeListeners(modal) {
+    // Click handler for buttons (add, move, delete)
+    modal.addEventListener('click', (e) => {
+      // Only handle if modal is open and target has action
+      if (modal.getAttribute('aria-hidden') !== 'false') return;
+
       const action = e.target.dataset.action;
       if (!action) return;
 
@@ -168,7 +172,10 @@ export const CategoryEditor = {
     });
 
     // Handle rename on blur
-    container.addEventListener('change', (e) => {
+    modal.addEventListener('change', (e) => {
+      // Only handle if modal is open
+      if (modal.getAttribute('aria-hidden') !== 'false') return;
+
       if (e.target.dataset.action === 'rename') {
         const itemEl = e.target.closest('.edit-item');
         const itemId = itemEl?.dataset.id;
@@ -324,6 +331,10 @@ export const CategoryEditor = {
         this.close();
       }
     });
+
+    // Attach tree event listeners ONCE via delegation on the modal
+    // This prevents listener accumulation when renderTree() is called multiple times
+    this.attachTreeListeners(modal);
 
     // Store onSave callback
     this._onSave = onSave;
