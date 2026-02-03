@@ -139,16 +139,28 @@ Maximum depth: 3 levels (trunk → branch → leaf)
 | Cancel | Unchanged | Unchanged | Unchanged |
 | "Reset to Defaults" button | Reset to defaults | Reset (cleared) | Reset to template |
 
-**Delete behavior**: Always recursive. Deleting a parent deletes all children. Confirmation shown: "Delete [name] and all sub-items?"
+**Delete behavior**: Always recursive. Deleting a parent deletes all children. Remaining siblings preserve their order. Confirmation shown: "Delete [name] and all sub-items?"
 
-**Reorder behavior**: Up/down buttons at same level only. New items added at end of their level.
+**Reorder behavior**: Up/down buttons at same level only. New items added at end of their level. Deletion preserves order of remaining items.
 
 **Preview/Prompt mapping:**
 - Categories appear as **section headers** (no status, no traffic light)
 - Only leaf items appear in GREEN/YELLOW/RED sections
 - Items grouped by status, not by category
 - Empty comments: omit entirely (no placeholder text)
-- Comments included as-is (no truncation)
+- Comments in HTML preview: escaped via `escapeHtml()` (XSS prevention)
+- Comments in prompt output: included as-is (plain text, no escaping needed)
+
+**UI structure:**
+- **No expand/collapse behavior** - categories are always visible
+- Static nested list structure (not a dynamic tree widget)
+- This is intentional to keep UI simple and predictable
+
+**Accessibility requirements:**
+- Traffic lights: standard radio group keyboard navigation (arrow keys to change selection)
+- Tab order: flows naturally through items (label → traffic light → comment field)
+- All interactive elements must be keyboard accessible
+- Focus indicators required on all focusable elements
 
 **Layout constraints:**
 - Target: 1440px width (MacBook Air)
