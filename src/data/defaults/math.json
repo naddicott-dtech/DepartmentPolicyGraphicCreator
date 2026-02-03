@@ -1,0 +1,38 @@
+{
+  "department": "Math",
+  "categories": [
+    {
+      "id": "math-understanding",
+      "label": "UNDERSTANDING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "math-explain", "label": "Explain a concept", "status": "green", "comment": "", "children": [] },
+        { "id": "math-why", "label": "\"Why does this work?\"", "status": "green", "comment": "", "children": [] },
+        { "id": "math-visualize", "label": "Visualize & graph", "status": "green", "comment": "", "children": [] },
+        { "id": "math-mistake", "label": "Find my mistake", "status": "yellow", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "math-solving",
+      "label": "SOLVING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "math-assigned", "label": "Assigned problems", "status": "red", "comment": "", "children": [] },
+        { "id": "math-wordprob", "label": "Setting up word problems", "status": "red", "comment": "", "children": [] },
+        { "id": "math-stepbystep", "label": "Step-by-step solutions", "status": "red", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "math-practicing",
+      "label": "PRACTICING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "math-generate", "label": "Generate practice problems", "status": "green", "comment": "", "children": [] },
+        { "id": "math-check", "label": "Check answers (after attempt)", "status": "yellow", "comment": "", "children": [] }
+      ]
+    }
+  ]
+}

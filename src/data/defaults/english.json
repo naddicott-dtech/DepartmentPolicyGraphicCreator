@@ -1,0 +1,38 @@
+{
+  "department": "English",
+  "categories": [
+    {
+      "id": "english-understanding",
+      "label": "UNDERSTANDING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "eng-explain", "label": "Explain concepts & vocabulary", "status": "green", "comment": "", "children": [] },
+        { "id": "eng-summarize", "label": "Summarizing sources", "status": "yellow", "comment": "", "children": [] },
+        { "id": "eng-interpret", "label": "Interpreting text for you", "status": "red", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "english-writing",
+      "label": "WRITING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "eng-brainstorm", "label": "Brainstorming & outlining", "status": "green", "comment": "", "children": [] },
+        { "id": "eng-feedback", "label": "Feedback on YOUR draft", "status": "green", "comment": "", "children": [] },
+        { "id": "eng-write-for-you", "label": "Writing or rewriting for you", "status": "red", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "english-revising",
+      "label": "REVISING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "eng-grammar", "label": "Grammar & spelling", "status": "green", "comment": "", "children": [] },
+        { "id": "eng-style", "label": "Style suggestions", "status": "yellow", "comment": "", "children": [] },
+        { "id": "eng-paraphrase", "label": "Paraphrasing for you", "status": "red", "comment": "", "children": [] }
+      ]
+    }
+  ]
+}

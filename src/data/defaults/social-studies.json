@@ -1,0 +1,38 @@
+{
+  "department": "Social Studies",
+  "categories": [
+    {
+      "id": "socstud-understanding",
+      "label": "UNDERSTANDING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "ss-define", "label": "Define terms & concepts", "status": "green", "comment": "", "children": [] },
+        { "id": "ss-context", "label": "Background context", "status": "yellow", "comment": "", "children": [] },
+        { "id": "ss-perspectives", "label": "Explore perspectives", "status": "yellow", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "socstud-research",
+      "label": "RESEARCH",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "ss-sources", "label": "Finding source types", "status": "green", "comment": "", "children": [] },
+        { "id": "ss-summarize", "label": "Summarizing sources for you", "status": "red", "comment": "", "children": [] },
+        { "id": "ss-recent", "label": "Recent events & data", "status": "red", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "socstud-writing",
+      "label": "WRITING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "ss-brainstorm", "label": "Brainstorming & outlining", "status": "green", "comment": "", "children": [] },
+        { "id": "ss-grammar", "label": "Grammar & spelling", "status": "green", "comment": "", "children": [] },
+        { "id": "ss-thesis", "label": "Your analysis & thesis", "status": "red", "comment": "", "children": [] }
+      ]
+    }
+  ]
+}

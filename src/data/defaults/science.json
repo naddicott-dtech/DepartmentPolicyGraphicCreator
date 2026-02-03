@@ -1,0 +1,39 @@
+{
+  "department": "Science",
+  "categories": [
+    {
+      "id": "science-understanding",
+      "label": "UNDERSTANDING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "sci-explain", "label": "Explain concepts", "status": "green", "comment": "", "children": [] },
+        { "id": "sci-safety", "label": "Safety information", "status": "green", "comment": "", "children": [] },
+        { "id": "sci-background", "label": "Background research", "status": "green", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "science-labwork",
+      "label": "LAB WORK",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "sci-hypothesis", "label": "Hypothesis & design", "status": "red", "comment": "", "children": [] },
+        { "id": "sci-data", "label": "Collecting data", "status": "red", "comment": "", "children": [] },
+        { "id": "sci-procedures", "label": "Writing procedures", "status": "red", "comment": "", "children": [] },
+        { "id": "sci-interpret", "label": "Interpreting results", "status": "red", "comment": "", "children": [] },
+        { "id": "sci-grammar", "label": "Grammar & editing", "status": "green", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "science-datawriting",
+      "label": "DATA & WRITING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "sci-calc", "label": "Checking calculations", "status": "green", "comment": "", "children": [] },
+        { "id": "sci-analysis", "label": "Writing analysis/lit review", "status": "red", "comment": "", "children": [] }
+      ]
+    }
+  ]
+}
