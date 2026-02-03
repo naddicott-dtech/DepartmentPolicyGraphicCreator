@@ -1,8 +1,9 @@
 # Handoff Document: Department Policy Graphic Creator
 
 **Date**: 2026-02-03
-**Branch**: `main` (Phases 1-3 complete)
+**Branch**: `claude/implementation-phase4-krzb9`
 **Tests**: 109 passing
+**Status**: App is functional - needs browser testing
 
 ---
 
@@ -18,20 +19,33 @@ A frontend-only web app for d.tech High School. Staff select their department, c
 
 ## Current State
 
-### Completed (Phases 1-3)
+### Completed (Phases 1-4)
 
 | Phase | Status | Description |
 |-------|--------|-------------|
 | 1 | ✅ | Project foundation - package.json, Jest, CSS variables, HTML shell |
 | 2 | ✅ | Data layer - utils, services, default JSON files for 6 departments |
 | 3 | ✅ | State management (AppState) and PromptService |
+| 4 | ✅ | UI components and main.js wiring |
 
-### Remaining (Phases 4-5)
+### Remaining
 
-| Phase | Status | Description |
-|-------|--------|-------------|
-| 4 | 🔲 | UI components - wire up DOM rendering |
-| 5 | 🔲 | Integration - main.js, CategoryEditor modal |
+| Task | Status | Description |
+|------|--------|-------------|
+| Browser testing | 🔲 | Test all functionality in browser, fix any issues |
+| Polish | 🔲 | Any UI/UX refinements based on testing |
+
+---
+
+## How to Test
+
+```bash
+cd /path/to/DepartmentPolicyGraphicCreator/src
+python3 -m http.server 8000
+# Open http://localhost:8000 in browser
+```
+
+Or: `npx serve src`
 
 ---
 
@@ -39,16 +53,14 @@ A frontend-only web app for d.tech High School. Staff select their department, c
 
 ```
 src/
-├── index.html              # ✅ Shell ready, needs JS wiring
-├── main.js                 # 🔲 NOT CREATED - entry point
-├── components/             # 🔲 EMPTY - need to create:
+├── index.html              # ✅ Complete
+├── main.js                 # ✅ Complete - entry point
+├── components/             # ✅ Complete
 │   ├── DepartmentSelector.js
-│   ├── CategoryTree.js
-│   ├── TrafficLight.js
-│   ├── CommentField.js
+│   ├── CategoryTree.js     # Includes traffic light + comment
 │   ├── Preview.js
 │   ├── PromptOutput.js
-│   └── CategoryEditor.js   # Modal for editing structure
+│   └── CategoryEditor.js   # Modal for editing
 ├── services/               # ✅ Complete
 │   ├── CategoryService.js
 │   ├── DefaultsService.js
