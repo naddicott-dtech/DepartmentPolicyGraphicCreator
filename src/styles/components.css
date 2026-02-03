@@ -348,3 +348,33 @@
 .add-item-btn:hover {
   text-decoration: underline;
 }
+
+/* Empty states */
+.empty-state,
+.preview-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: var(--spacing-xl);
+  font-style: italic;
+}
+
+/* Copy button feedback */
+.btn-primary.copied {
+  background-color: var(--status-green);
+}
+
+/* Disabled buttons */
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Edit item disabled buttons */
+.edit-item-actions button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.edit-item-actions button:disabled:hover {
+  color: var(--text-muted);
+}
