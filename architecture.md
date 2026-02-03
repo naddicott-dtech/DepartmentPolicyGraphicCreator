@@ -154,6 +154,68 @@ src/
     └── preview.css            # Preview-specific styles
 ```
 
+## Visual Design System (d.tech Branding)
+
+The application uses Design Tech High School's established brand identity.
+
+### Color Palette
+
+```css
+:root {
+  /* Brand Colors */
+  --brand-primary: #E94E1B;    /* d.tech Orange (Persimmon) */
+  --brand-dark: #2D2D2D;       /* Footer/Charcoal */
+  --brand-light: #FFFFFF;      /* Clean white */
+
+  /* Text Colors */
+  --text-main: #333333;        /* Primary text on light bg */
+  --text-inverse: #FFFFFF;     /* Text on dark bg */
+  --text-muted: #999999;       /* Secondary/help text */
+
+  /* Traffic Light Colors */
+  --status-green: #22C55E;     /* OK / Go ahead */
+  --status-yellow: #EAB308;    /* Ask first / Depends */
+  --status-red: #EF4444;       /* Not allowed */
+
+  /* Typography */
+  --font-family-sans: 'Open Sans', 'Roboto', sans-serif;
+  --font-heading-weight: 700;
+  --font-body-weight: 400;
+
+  /* UI Components */
+  --border-radius-card: 12px;
+  --border-radius-btn: 6px;
+  --border-width-card: 3px;
+}
+```
+
+### Typography
+
+- **Headings**: Bold (700), geometric sans-serif
+- **Body**: Regular (400), clean and legible
+- **Navigation**: Uppercase, tracking-adjusted
+- **Buttons**: Uppercase labels, white text on orange
+
+### UI Components
+
+| Element | Specification |
+|---------|--------------|
+| Buttons | Solid orange (#E94E1B), white text, rounded (6px), uppercase |
+| Cards | White background, 3px orange border, rounded (12px) |
+| Icons | Flat, single-color orange, simple silhouettes |
+| Footer | Charcoal background (#2D2D2D), white text |
+
+### Nano Banana Pro Style Keywords
+
+For prompt generation, include these style directives:
+```
+Style: Clean, minimalist, flat vector design.
+Colors: Vibrant Persimmon Orange (#E94E1B) for accents, white background, charcoal text.
+Typography: Modern geometric sans-serif (Roboto style), bold headings.
+Aesthetic: Academic yet innovative, Silicon Valley tech aesthetic, high contrast.
+Constraints: No gradients, no drop shadows, purely flat design.
+```
+
 ## Key Design Decisions
 
 ### 1. Side-by-Side Layout
@@ -172,13 +234,66 @@ src/
 
 Target: MacBook Air screens (~1440px width minimum)
 
-### 2. Edit Mode Behavior
+### 2. Edit Mode Behavior (Modal with Constrained Operations)
 
-When user clicks "Edit Categories":
-- Opens a modal or transforms the tree into edit mode
-- Can: add, delete, rename, reorganize items
-- On save: **resets all traffic light selections** (simpler than diffing)
-- Shows confirmation: "This will reset your color selections. Continue?"
+**Decision**: Use a **modal dialog** for category editing.
+
+**Rationale**:
+- Clear state separation (editing vs. configuring)
+- Prevents accidental structural changes
+- Easier to implement cancel/confirm flow
+- Reduces edge cases vs. inline editing
+
+**Modal UI**:
+```
+┌─────────────────────────────────────────────────────────┐
+│  Edit Categories                                    [X] │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ▼ Research & Sources          [Rename] [Delete]       │
+│    ├─ Finding sources          [Rename] [Delete]       │
+│    ├─ Summarizing articles     [Rename] [Delete]       │
+│    └─ [+ Add sub-item]                                 │
+│                                                         │
+│  ▼ Writing                     [Rename] [Delete]       │
+│    └─ ...                                              │
+│                                                         │
+│  [+ Add Category]                                       │
+│                                                         │
+├─────────────────────────────────────────────────────────┤
+│  ⚠ Saving will reset all traffic light selections.     │
+│                                                         │
+│              [Cancel]              [Save Changes]       │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Allowed Operations** (constrained to reduce edge cases):
+| Operation | Scope | Notes |
+|-----------|-------|-------|
+| Add category | Top level | Creates new trunk with no children |
+| Add sub-item | Under any item | Max depth enforced (3 levels) |
+| Rename | Any item | Inline text edit |
+| Delete | Any item | Confirms if has children; deletes recursively |
+| Reorder | Same level only | Up/down buttons (no drag-drop) |
+
+**NOT Allowed** (to avoid complexity):
+- Moving items between parents
+- Drag-and-drop reordering
+- Copy/paste items
+- Bulk operations
+
+**Error Handling**:
+All edit errors show inline, human-readable messages:
+- "Category name cannot be empty"
+- "Maximum depth reached (3 levels)"
+- "A category with this name already exists"
+- "Cannot delete: please remove sub-items first" (if we want non-recursive delete)
+
+**On Save**:
+1. Validate tree structure
+2. Show confirmation: "This will reset your color selections. Continue?"
+3. If confirmed: save structure, reset all statuses to defaults, close modal
+4. If cancelled: discard changes, close modal
 
 ### 3. Preview Updates
 
@@ -321,23 +436,206 @@ To prevent feature creep, these are **not** in v1:
 - ❌ Undo/redo for edits
 - ❌ Drag-and-drop reordering (use simple up/down buttons if needed)
 
-## Open Questions
+## Resolved Decisions
 
-1. **School branding**: Do you have specific colors/fonts to include, or should I create a placeholder theme system?
+| Question | Decision |
+|----------|----------|
+| School branding | d.tech brand: Orange #E94E1B, Charcoal #2D2D2D, geometric sans-serif |
+| Category editing UI | Modal dialog with constrained operations |
+| Default categories | Consensus lists developed via multi-perspective review |
 
-2. **Default category content**: Should I draft initial category lists for each department, or do you have existing materials to reference?
+---
 
-3. **Category editing UI**: Preference between:
-   - Modal dialog (overlay)
-   - Inline editing (transform tree in place)
-   - Separate "edit mode" page/view
+## Default Category Lists (Consensus)
+
+These defaults were developed by simulating multiple teacher perspectives with varying AI-friendliness levels. The consensus prioritizes:
+- **Brevity** (posters need minimal text)
+- **Clarity** (students should quickly understand)
+- **Conservative defaults** (red = safe starting point, teachers can loosen)
+
+### English
+
+```
+Research
+├─ Explaining concepts          [GREEN]
+├─ Finding search terms         [GREEN]
+└─ Summarizing sources          [YELLOW]
+
+Writing Process
+├─ Brainstorming ideas          [GREEN]
+├─ Writing drafts               [RED]
+└─ Expanding your ideas         [YELLOW]
+
+Revising
+├─ Grammar & spelling           [GREEN]
+├─ Feedback on drafts           [GREEN]
+└─ Rewriting sections           [YELLOW]
+
+Reading Support
+├─ Vocabulary definitions       [GREEN]
+├─ Explaining passages          [YELLOW]
+└─ Writing your analysis        [RED]
+
+Creative Writing
+├─ Story prompts                [GREEN]
+└─ Writing your piece           [RED]
+```
+
+### Math
+
+```
+Problem Solving
+├─ Homework problems            [RED]
+├─ Test & quiz problems         [RED]
+└─ Extra practice               [YELLOW]
+
+Checking Work
+├─ Verify final answers         [YELLOW]
+└─ Step-by-step solutions       [RED]
+
+Understanding Concepts
+├─ Explain a topic              [GREEN]
+├─ Worked examples              [YELLOW]
+└─ "Why does this work?"        [GREEN]
+
+Graphing
+├─ Check your graphs            [GREEN]
+└─ Visualize functions          [GREEN]
+
+Word Problems
+├─ Clarify vocabulary           [GREEN]
+└─ Translate to equations       [RED]
+```
+
+### Science
+
+```
+Understanding Concepts
+├─ Explaining topics            [GREEN]
+├─ Worked examples              [GREEN]
+└─ Practice problems            [GREEN]
+
+Lab Reports
+├─ Collecting data              [RED]
+├─ Writing procedures           [RED]
+├─ Interpreting results         [RED]
+└─ Grammar & editing            [GREEN]
+
+Research
+├─ Background info              [GREEN]
+├─ Explaining papers            [YELLOW]
+└─ Writing lit review           [RED]
+
+Data & Calculations
+├─ Checking math                [GREEN]
+├─ Statistical analysis         [YELLOW]
+└─ Creating graphs              [YELLOW]
+```
+
+### Social Studies
+
+```
+Research
+├─ Defining terms               [GREEN]
+├─ Finding source types         [GREEN]
+├─ Verifying facts              [YELLOW]
+└─ Summarizing for you          [RED]
+
+Writing
+├─ Brainstorming topics         [GREEN]
+├─ Grammar & spelling           [GREEN]
+└─ Writing your analysis        [RED]
+
+Historical Thinking
+├─ Understanding context        [YELLOW]
+├─ Multiple perspectives        [YELLOW]
+├─ Interpreting sources         [RED]
+└─ Forming your thesis          [RED]
+
+Current Events
+├─ Background on issues         [YELLOW]
+└─ Recent facts & stats         [RED]
+```
+
+### Maker
+
+```
+Brainstorming
+├─ Generating ideas             [GREEN]
+├─ Finding references           [GREEN]
+└─ Creating final design        [RED]
+
+Code & Electronics
+├─ Explaining errors            [GREEN]
+├─ Learning syntax              [GREEN]
+├─ Debugging help               [YELLOW]
+└─ Writing code for you         [RED]
+
+CAD & Modeling
+├─ Learning tools               [GREEN]
+├─ Troubleshooting files        [GREEN]
+└─ Generating models            [RED]
+
+Making & Materials
+├─ Material recommendations     [GREEN]
+├─ Safety information           [GREEN]
+└─ Solving build problems       [YELLOW]
+
+Documentation
+├─ Spell & grammar              [GREEN]
+└─ Explaining your process      [RED]
+```
+
+### Foreign Language
+
+```
+Translation
+├─ Single word lookup           [GREEN]
+├─ Full sentence                [RED]
+└─ Full text                    [RED]
+
+Writing
+├─ AI writes for you            [RED]
+├─ Grammar check (after draft)  [YELLOW]
+└─ Brainstorming ideas          [YELLOW]
+
+Speaking
+├─ Pronunciation help           [GREEN]
+├─ AI conversation partner      [YELLOW]
+└─ Recording for feedback       [GREEN]
+
+Vocabulary
+├─ Flashcard apps               [GREEN]
+├─ Word definitions             [GREEN]
+└─ Example sentences            [YELLOW]
+
+Grammar
+├─ Rule explanations            [GREEN]
+├─ Exercise answers             [RED]
+└─ Error explanations           [YELLOW]
+
+Reading
+├─ AI summarizes text           [RED]
+└─ Unknown word lookup          [GREEN]
+```
+
+### Design Principles for Defaults
+
+| Principle | Rationale |
+|-----------|-----------|
+| Core skill practice → RED | If AI does the skill we're teaching, learning is bypassed |
+| Understanding/explaining → GREEN | AI as tutor mirrors office hours |
+| Mechanical tasks (grammar, formatting) → GREEN | Doesn't replace thinking |
+| "Try first" tasks → YELLOW | Productive struggle has value; context matters |
+| Verification → YELLOW | Timing matters (after honest attempt = OK) |
+| Current/recent info → RED/YELLOW | AI knowledge cutoff makes it unreliable |
 
 ---
 
 ## Checklist Before Implementation
 
-- [ ] Confirm data model meets needs
-- [ ] Confirm component breakdown is correct
-- [ ] Confirm prompt format is accurate
-- [ ] Get school branding details (or confirm placeholder OK)
-- [ ] Draft default categories for at least 1 department as example
+- [x] Confirm data model meets needs
+- [x] Confirm component breakdown is correct
+- [x] Confirm prompt format is accurate
+- [x] Get school branding details
+- [x] Finalize default categories for all 6 departments
