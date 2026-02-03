@@ -446,189 +446,171 @@ To prevent feature creep, these are **not** in v1:
 
 ---
 
-## Default Category Lists (Consensus)
+## Default Category Lists (Final Consensus)
 
-These defaults were developed by simulating multiple teacher perspectives with varying AI-friendliness levels. The consensus prioritizes:
-- **Brevity** (posters need minimal text)
-- **Clarity** (students should quickly understand)
-- **Conservative defaults** (red = safe starting point, teachers can loosen)
+Developed through 24-teacher simulation (4 per department) with varying AI perspectives.
+Refined through "brutal copy editor" pass for poster readability.
 
-### English
+**Design Principles:**
+- **3 categories max** per department (poster-scannable)
+- **8-10 items max** per department (readable at a glance)
+- **GREEN** = AI explains TO you (learning)
+- **YELLOW** = Ask your teacher first (context matters)
+- **RED** = AI does it FOR you (not allowed)
 
-```
-Research
-├─ Explaining concepts          [GREEN]
-├─ Finding search terms         [GREEN]
-└─ Summarizing sources          [YELLOW]
+---
 
-Writing Process
-├─ Brainstorming ideas          [GREEN]
-├─ Writing drafts               [RED]
-└─ Expanding your ideas         [YELLOW]
-
-Revising
-├─ Grammar & spelling           [GREEN]
-├─ Feedback on drafts           [GREEN]
-└─ Rewriting sections           [YELLOW]
-
-Reading Support
-├─ Vocabulary definitions       [GREEN]
-├─ Explaining passages          [YELLOW]
-└─ Writing your analysis        [RED]
-
-Creative Writing
-├─ Story prompts                [GREEN]
-└─ Writing your piece           [RED]
-```
-
-### Math
+### English (9 items)
 
 ```
-Problem Solving
-├─ Homework problems            [RED]
-├─ Test & quiz problems         [RED]
-└─ Extra practice               [YELLOW]
+UNDERSTANDING
+├─ Explain concepts & vocabulary   [GREEN]
+├─ Summarizing sources             [YELLOW]
+└─ Interpreting text for you       [RED]
 
-Checking Work
-├─ Verify final answers         [YELLOW]
-└─ Step-by-step solutions       [RED]
+WRITING
+├─ Brainstorming & outlining       [GREEN]
+├─ Feedback on YOUR draft          [GREEN]
+└─ Writing or rewriting for you    [RED]
 
-Understanding Concepts
-├─ Explain a topic              [GREEN]
-├─ Worked examples              [YELLOW]
-└─ "Why does this work?"        [GREEN]
-
-Graphing
-├─ Check your graphs            [GREEN]
-└─ Visualize functions          [GREEN]
-
-Word Problems
-├─ Clarify vocabulary           [GREEN]
-└─ Translate to equations       [RED]
+REVISING
+├─ Grammar & spelling              [GREEN]
+├─ Style suggestions               [YELLOW]
+└─ Paraphrasing for you            [RED]
 ```
 
-### Science
+---
+
+### Math (9 items)
 
 ```
-Understanding Concepts
-├─ Explaining topics            [GREEN]
-├─ Worked examples              [GREEN]
-└─ Practice problems            [GREEN]
+UNDERSTANDING
+├─ Explain a concept               [GREEN]
+├─ "Why does this work?"           [GREEN]
+├─ Visualize & graph               [GREEN]
+└─ Find my mistake                 [YELLOW]
 
-Lab Reports
-├─ Collecting data              [RED]
-├─ Writing procedures           [RED]
-├─ Interpreting results         [RED]
-└─ Grammar & editing            [GREEN]
+SOLVING
+├─ Assigned problems               [RED]
+├─ Setting up word problems        [RED]
+└─ Step-by-step solutions          [RED]
 
-Research
-├─ Background info              [GREEN]
-├─ Explaining papers            [YELLOW]
-└─ Writing lit review           [RED]
-
-Data & Calculations
-├─ Checking math                [GREEN]
-├─ Statistical analysis         [YELLOW]
-└─ Creating graphs              [YELLOW]
+PRACTICING
+├─ Generate practice problems      [GREEN]
+└─ Check answers (after attempt)   [YELLOW]
 ```
 
-### Social Studies
+---
+
+### Science (10 items)
 
 ```
-Research
-├─ Defining terms               [GREEN]
-├─ Finding source types         [GREEN]
-├─ Verifying facts              [YELLOW]
-└─ Summarizing for you          [RED]
+UNDERSTANDING
+├─ Explain concepts                [GREEN]
+├─ Safety information              [GREEN]
+└─ Background research             [GREEN]
 
-Writing
-├─ Brainstorming topics         [GREEN]
-├─ Grammar & spelling           [GREEN]
-└─ Writing your analysis        [RED]
+LAB WORK
+├─ Hypothesis & design             [RED]
+├─ Collecting data                 [RED]
+├─ Writing procedures              [RED]
+├─ Interpreting results            [RED]
+└─ Grammar & editing               [GREEN]
 
-Historical Thinking
-├─ Understanding context        [YELLOW]
-├─ Multiple perspectives        [YELLOW]
-├─ Interpreting sources         [RED]
-└─ Forming your thesis          [RED]
-
-Current Events
-├─ Background on issues         [YELLOW]
-└─ Recent facts & stats         [RED]
+DATA & WRITING
+├─ Checking calculations           [GREEN]
+└─ Writing analysis/lit review     [RED]
 ```
 
-### Maker
+---
+
+### Social Studies (9 items)
 
 ```
-Brainstorming
-├─ Generating ideas             [GREEN]
-├─ Finding references           [GREEN]
-└─ Creating final design        [RED]
+UNDERSTANDING
+├─ Define terms & concepts         [GREEN]
+├─ Background context              [YELLOW]
+└─ Explore perspectives            [YELLOW]
 
-Code & Electronics
-├─ Explaining errors            [GREEN]
-├─ Learning syntax              [GREEN]
-├─ Debugging help               [YELLOW]
-└─ Writing code for you         [RED]
+RESEARCH
+├─ Finding source types            [GREEN]
+├─ Summarizing sources for you     [RED]
+└─ Recent events & data            [RED]
 
-CAD & Modeling
-├─ Learning tools               [GREEN]
-├─ Troubleshooting files        [GREEN]
-└─ Generating models            [RED]
-
-Making & Materials
-├─ Material recommendations     [GREEN]
-├─ Safety information           [GREEN]
-└─ Solving build problems       [YELLOW]
-
-Documentation
-├─ Spell & grammar              [GREEN]
-└─ Explaining your process      [RED]
+WRITING
+├─ Brainstorming & outlining       [GREEN]
+├─ Grammar & spelling              [GREEN]
+└─ Your analysis & thesis          [RED]
 ```
 
-### Foreign Language
+---
+
+### Maker (10 items)
 
 ```
-Translation
-├─ Single word lookup           [GREEN]
-├─ Full sentence                [RED]
-└─ Full text                    [RED]
+LEARNING
+├─ Explain concepts & tools        [GREEN]
+├─ Research & references           [GREEN]
+├─ Safety information              [GREEN]
+└─ Understanding errors            [GREEN]
 
-Writing
-├─ AI writes for you            [RED]
-├─ Grammar check (after draft)  [YELLOW]
-└─ Brainstorming ideas          [YELLOW]
+CREATING
+├─ Brainstorming ideas             [GREEN]
+├─ AI-generated designs/models     [RED]
+├─ AI-generated code               [RED]
+└─ Solving problems for you        [YELLOW]
 
-Speaking
-├─ Pronunciation help           [GREEN]
-├─ AI conversation partner      [YELLOW]
-└─ Recording for feedback       [GREEN]
-
-Vocabulary
-├─ Flashcard apps               [GREEN]
-├─ Word definitions             [GREEN]
-└─ Example sentences            [YELLOW]
-
-Grammar
-├─ Rule explanations            [GREEN]
-├─ Exercise answers             [RED]
-└─ Error explanations           [YELLOW]
-
-Reading
-├─ AI summarizes text           [RED]
-└─ Unknown word lookup          [GREEN]
+DOCUMENTING
+├─ Spelling & grammar              [GREEN]
+└─ Writing your reflection         [RED]
 ```
 
-### Design Principles for Defaults
+---
 
-| Principle | Rationale |
-|-----------|-----------|
-| Core skill practice → RED | If AI does the skill we're teaching, learning is bypassed |
-| Understanding/explaining → GREEN | AI as tutor mirrors office hours |
-| Mechanical tasks (grammar, formatting) → GREEN | Doesn't replace thinking |
-| "Try first" tasks → YELLOW | Productive struggle has value; context matters |
-| Verification → YELLOW | Timing matters (after honest attempt = OK) |
-| Current/recent info → RED/YELLOW | AI knowledge cutoff makes it unreliable |
+### Foreign Language (10 items)
+
+```
+UNDERSTANDING
+├─ Word & phrase lookup            [GREEN]
+├─ Grammar rule explanations       [GREEN]
+├─ Pronunciation practice          [GREEN]
+└─ AI summarizes text for you      [RED]
+
+PRACTICING
+├─ Flashcards & study tools        [GREEN]
+├─ AI conversation partner         [YELLOW]
+└─ Exercise answers                [RED]
+
+PRODUCING
+├─ Grammar check on YOUR draft     [YELLOW]
+├─ Sentence/text translation       [RED]
+└─ AI writes for you               [RED]
+```
+
+---
+
+### Summary Statistics
+
+| Department | Categories | Items | GREEN | YELLOW | RED |
+|------------|------------|-------|-------|--------|-----|
+| English | 3 | 9 | 4 | 2 | 3 |
+| Math | 3 | 9 | 5 | 2 | 3 |
+| Science | 3 | 10 | 5 | 0 | 5 |
+| Social Studies | 3 | 9 | 4 | 2 | 3 |
+| Maker | 3 | 10 | 6 | 1 | 3 |
+| Foreign Language | 3 | 10 | 4 | 2 | 4 |
+
+### Key Changes from Initial Draft
+
+| Change | Rationale |
+|--------|-----------|
+| Reduced from 4-6 categories to 3 | Poster readability |
+| Reduced from 12-16 items to 9-10 | Quick scanning |
+| Merged redundant items | "Explain concepts" + "vocabulary" = one item |
+| Added missing critical items | Safety (Science, Maker), Find my mistake (Math) |
+| Clarified YELLOW meaning | "Ask your teacher first" |
+| Made Science more restrictive | Lab work is the core skill; protect it |
+| Consolidated Foreign Lang lookups | 3 redundant items → 1 |
 
 ---
 
