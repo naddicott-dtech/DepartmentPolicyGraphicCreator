@@ -1,0 +1,39 @@
+{
+  "department": "Foreign Language",
+  "categories": [
+    {
+      "id": "fl-understanding",
+      "label": "UNDERSTANDING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "fl-lookup", "label": "Word & phrase lookup", "status": "green", "comment": "", "children": [] },
+        { "id": "fl-grammar-rules", "label": "Grammar rule explanations", "status": "green", "comment": "", "children": [] },
+        { "id": "fl-pronunciation", "label": "Pronunciation practice", "status": "green", "comment": "", "children": [] },
+        { "id": "fl-summarize", "label": "AI summarizes text for you", "status": "red", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "fl-practicing",
+      "label": "PRACTICING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "fl-flashcards", "label": "Flashcards & study tools", "status": "green", "comment": "", "children": [] },
+        { "id": "fl-conversation", "label": "AI conversation partner", "status": "yellow", "comment": "", "children": [] },
+        { "id": "fl-answers", "label": "Exercise answers", "status": "red", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "fl-producing",
+      "label": "PRODUCING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "fl-grammar-check", "label": "Grammar check on YOUR draft", "status": "yellow", "comment": "", "children": [] },
+        { "id": "fl-translate", "label": "Sentence/text translation", "status": "red", "comment": "", "children": [] },
+        { "id": "fl-write", "label": "AI writes for you", "status": "red", "comment": "", "children": [] }
+      ]
+    }
+  ]
+}

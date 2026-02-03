@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Policy Creator | d.tech High School</title>
+  <link rel="icon" type="image/png" href="../assets/logos/dtech-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+  <header>
+    <div class="header-brand">
+      <img src="../assets/logos/dtech-logo.png" alt="d.tech High School" class="logo" height="40">
+      <h1>AI Policy Creator</h1>
+    </div>
+    <nav aria-label="Department selection" data-testid="department-nav">
+      <!-- Department buttons rendered by JS -->
+    </nav>
+  </header>
+
+  <main class="split-layout">
+    <section aria-label="Policy editor" class="editor-panel">
+      <div class="toolbar">
+        <button class="btn-secondary" data-testid="edit-categories">Edit Categories</button>
+        <button class="btn-secondary" data-testid="reset-defaults">Reset to Defaults</button>
+      </div>
+
+      <div id="category-tree" data-testid="category-tree">
+        <!-- Category tree rendered by JS -->
+      </div>
+    </section>
+
+    <aside aria-label="Preview" class="preview-panel">
+      <article class="poster-preview" data-testid="preview">
+        <!-- Preview rendered by JS -->
+      </article>
+
+      <section class="prompt-output">
+        <h2>Nano Banana Pro Prompt</h2>
+        <pre data-testid="prompt-text"><code id="prompt-content"></code></pre>
+        <button class="btn-primary" data-testid="copy-prompt">Copy to Clipboard</button>
+      </section>
+    </aside>
+  </main>
+
+  <!-- Edit Categories Modal -->
+  <div id="edit-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Edit Categories</h2>
+        <button class="modal-close" data-testid="modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-tree">
+        <!-- Editable tree rendered by JS -->
+      </div>
+      <div class="modal-footer">
+        <p class="modal-warning">⚠ Saving will reset all selections and comments.</p>
+        <div class="modal-actions">
+          <button class="btn-secondary" data-testid="modal-cancel">Cancel</button>
+          <button class="btn-primary" data-testid="modal-save">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "department": "Maker",
+  "categories": [
+    {
+      "id": "maker-learning",
+      "label": "LEARNING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "maker-explain", "label": "Explain concepts & tools", "status": "green", "comment": "", "children": [] },
+        { "id": "maker-research", "label": "Research & references", "status": "green", "comment": "", "children": [] },
+        { "id": "maker-safety", "label": "Safety information", "status": "green", "comment": "", "children": [] },
+        { "id": "maker-errors", "label": "Understanding errors", "status": "green", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "maker-creating",
+      "label": "CREATING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "maker-brainstorm", "label": "Brainstorming ideas", "status": "green", "comment": "", "children": [] },
+        { "id": "maker-designs", "label": "AI-generated designs/models", "status": "red", "comment": "", "children": [] },
+        { "id": "maker-code", "label": "AI-generated code", "status": "red", "comment": "", "children": [] },
+        { "id": "maker-solve", "label": "Solving problems for you", "status": "yellow", "comment": "", "children": [] }
+      ]
+    },
+    {
+      "id": "maker-documenting",
+      "label": "DOCUMENTING",
+      "status": null,
+      "comment": "",
+      "children": [
+        { "id": "maker-spelling", "label": "Spelling & grammar", "status": "green", "comment": "", "children": [] },
+        { "id": "maker-reflection", "label": "Writing your reflection", "status": "red", "comment": "", "children": [] }
+      ]
+    }
+  ]
+}
