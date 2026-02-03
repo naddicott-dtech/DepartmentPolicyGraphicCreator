@@ -1,0 +1,53 @@
+/* d.tech High School Brand Variables */
+:root {
+  /* Brand Colors */
+  --brand-primary: #E94E1B;    /* d.tech Orange (Persimmon) */
+  --brand-dark: #2D2D2D;       /* Footer/Charcoal */
+  --brand-light: #FFFFFF;      /* Clean white */
+
+  /* Text Colors */
+  --text-main: #333333;        /* Primary text on light bg */
+  --text-inverse: #FFFFFF;     /* Text on dark bg */
+  --text-muted: #999999;       /* Secondary/help text */
+
+  /* Traffic Light Colors */
+  --status-green: #22C55E;     /* OK / Go ahead */
+  --status-yellow: #EAB308;    /* Ask first / Depends */
+  --status-red: #EF4444;       /* Not allowed */
+
+  /* Typography */
+  --font-family-sans: 'Open Sans', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading-weight: 700;
+  --font-body-weight: 400;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+
+  /* UI Components */
+  --border-radius-card: 12px;
+  --border-radius-btn: 6px;
+  --border-width-card: 3px;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Layout */
+  --min-width: 1200px;
+  --editor-width: 60%;
+  --preview-width: 40%;
+  --header-height: 80px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}

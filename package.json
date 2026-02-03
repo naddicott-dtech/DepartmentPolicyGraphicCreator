@@ -1,0 +1,20 @@
+{
+  "name": "department-policy-graphic-creator",
+  "version": "1.0.0",
+  "description": "Student-facing AI policy infographic generator for d.tech High School",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naddicott-dtech/DepartmentPolicyGraphicCreator"
+  },
+  "license": "MIT"
+}
